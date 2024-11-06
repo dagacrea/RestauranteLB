@@ -1,11 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `restaurante.lab` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `restaurante.lab`;
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
---
--- Host: localhost    Database: restaurante.lab
--- ------------------------------------------------------
--- Server version	8.0.39
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -27,13 +19,8 @@ DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `idcliente` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
-  `idpedido` int NOT NULL,
-  `idreserva` int NOT NULL,
-  `reservas_idreserva` int NOT NULL,
-  PRIMARY KEY (`idcliente`),
-  KEY `fk_clientes_reservas1_idx` (`reservas_idreserva`),
-  CONSTRAINT `fk_clientes_reservas1` FOREIGN KEY (`reservas_idreserva`) REFERENCES `reservas` (`idreserva`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`idcliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,31 +29,8 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'dario'),(2,'isma'),(3,'jere'),(4,'jorge'),(5,'matias'),(6,'ramon');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `datosrestaurante`
---
-
-DROP TABLE IF EXISTS `datosrestaurante`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `datosrestaurante` (
-  `idrestaurante` int NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
-  `ubicacion` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idrestaurante`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `datosrestaurante`
---
-
-LOCK TABLES `datosrestaurante` WRITE;
-/*!40000 ALTER TABLE `datosrestaurante` DISABLE KEYS */;
-/*!40000 ALTER TABLE `datosrestaurante` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -80,7 +44,7 @@ CREATE TABLE `mesas` (
   `idmesa` int NOT NULL AUTO_INCREMENT,
   `cantidadPersonas` int NOT NULL,
   PRIMARY KEY (`idmesa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,66 +53,60 @@ CREATE TABLE `mesas` (
 
 LOCK TABLES `mesas` WRITE;
 /*!40000 ALTER TABLE `mesas` DISABLE KEYS */;
+INSERT INTO `mesas` VALUES (1,2),(2,2),(3,2),(4,3),(5,3),(6,3),(7,4),(8,4),(9,5),(10,5),(11,6),(12,7),(13,8);
 /*!40000 ALTER TABLE `mesas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pedidos`
+-- Table structure for table `producto_ventas`
 --
 
-DROP TABLE IF EXISTS `pedidos`;
+DROP TABLE IF EXISTS `producto_ventas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pedidos` (
-  `idpedido` int NOT NULL,
-  `idmesa` int NOT NULL,
-  `cantidad platos` int NOT NULL,
-  `cantidadPostre` int NOT NULL,
-  `fehca-hora` date NOT NULL,
-  `ventas_idventa` int NOT NULL,
-  `total` int NOT NULL,
-  PRIMARY KEY (`idpedido`),
-  KEY `fk_pedidos_ventas1_idx` (`ventas_idventa`),
-  CONSTRAINT `fk_pedidos_ventas1` FOREIGN KEY (`ventas_idventa`) REFERENCES `ventas` (`idventa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `producto_ventas` (
+  `idproducto_venta` int NOT NULL AUTO_INCREMENT,
+  `idventa` int NOT NULL,
+  `idproducto` int NOT NULL,
+  `cantidadProducto` int NOT NULL,
+  `precio` float NOT NULL,
+  PRIMARY KEY (`idproducto_venta`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pedidos`
+-- Dumping data for table `producto_ventas`
 --
 
-LOCK TABLES `pedidos` WRITE;
-/*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
+LOCK TABLES `producto_ventas` WRITE;
+/*!40000 ALTER TABLE `producto_ventas` DISABLE KEYS */;
+INSERT INTO `producto_ventas` VALUES (1,1,1,2,10000),(2,1,2,1,4000),(3,1,3,2,6000),(4,1,11,2,4000),(5,1,13,1,1900),(6,1,14,1,1700),(7,2,1,1,5000),(8,2,11,1,2000);
+/*!40000 ALTER TABLE `producto_ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `platos`
+-- Table structure for table `productos`
 --
 
-DROP TABLE IF EXISTS `platos`;
+DROP TABLE IF EXISTS `productos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `platos` (
-  `idmenu` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
+CREATE TABLE `productos` (
+  `idproducto` int NOT NULL AUTO_INCREMENT,
   `precio` int NOT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `tamaño` varchar(45) DEFAULT NULL,
-  `mesas_idmesa1` int NOT NULL,
-  PRIMARY KEY (`idmenu`),
-  KEY `fk_platos_mesas2_idx` (`mesas_idmesa1`),
-  CONSTRAINT `fk_platos_mesas2` FOREIGN KEY (`mesas_idmesa1`) REFERENCES `mesas` (`idmesa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`idproducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `platos`
+-- Dumping data for table `productos`
 --
 
-LOCK TABLES `platos` WRITE;
-/*!40000 ALTER TABLE `platos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `platos` ENABLE KEYS */;
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,5000,'lomito'),(2,4000,'milanesa'),(3,3000,'hamburguesa'),(4,2000,'papas fritas'),(5,5000,'asado'),(6,5000,'asado vegano'),(7,4000,'pollo asado'),(8,4500,'emp.carne'),(9,4500,'emp. pollo'),(10,4500,'emp. jyq'),(11,2000,'coca'),(12,1900,'fanta'),(13,1900,'sprite'),(14,1700,'aquarius naranja'),(15,1700,'aquarius pera');
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -160,10 +118,12 @@ DROP TABLE IF EXISTS `reservas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservas` (
   `idreserva` int NOT NULL AUTO_INCREMENT,
-  `dia-hora` date NOT NULL,
-  `cantPerson` int NOT NULL,
+  `idcliente` int NOT NULL,
+  `idmesa` int NOT NULL,
+  `fecha` varchar(10) NOT NULL,
+  `fechaAReserv` varchar(10) NOT NULL,
   PRIMARY KEY (`idreserva`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +132,7 @@ CREATE TABLE `reservas` (
 
 LOCK TABLES `reservas` WRITE;
 /*!40000 ALTER TABLE `reservas` DISABLE KEYS */;
-INSERT INTO `reservas` VALUES (1,'2024-11-05',1),(2,'2024-11-05',2);
+INSERT INTO `reservas` VALUES (1,1,11,'2024-11-06','2024-11-23'),(2,5,4,'2024-11-06','2024-11-20'),(3,3,9,'2024-11-06','2024-11-22');
 /*!40000 ALTER TABLE `reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,11 +145,11 @@ DROP TABLE IF EXISTS `ventas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ventas` (
   `idventa` int NOT NULL AUTO_INCREMENT,
-  `total` int NOT NULL,
-  `idmesa` int NOT NULL,
-  `idcliente` int DEFAULT NULL,
+  `idcliente` int NOT NULL,
+  `fecha` varchar(20) NOT NULL,
+  `vendido` tinyint NOT NULL,
   PRIMARY KEY (`idventa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,6 +158,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
+INSERT INTO `ventas` VALUES (1,6,'2024-11-06',1),(2,4,'2024-11-06',1),(3,3,'2024-11-07',0);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -210,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-05 11:01:28
+-- Dump completed on 2024-11-06 13:00:41
