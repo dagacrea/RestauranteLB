@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import reservasRouter from "./tareas.js";
 import { conectarDB } from "./db.js";
+import menuRouter from "./Menu.js";
+
 
 conectarDB();
 console.log("Conectado a base de datos");
@@ -17,6 +19,9 @@ app.get("/", (req, res) => {
   res.send("hola gente");
 });
 app.use("/reservas", reservasRouter);
+
+app.use("/api/menu",menuRouter)
+
 app.listen(port, () => {
   console.log(`la aplicacion esta funcionando en el :${port}`);
 });
