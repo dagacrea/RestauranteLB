@@ -1,26 +1,26 @@
 import express, { json } from "express"
-import { db } from "./db"
+import { db } from "./db.js"
 
 const router = express.Router();
 
 //Obtener todos los platos
 router.get("/platos",async(req, res)=>{
     try{
-        const [result]= await db.execute("select * from menu")
+        const [result]= await db.execute("select * from productos")
         res.json(result)
     }catch(error){
         console.error("error al obeter el menu", error);
-        res.status(500).json({error:"error al obtener el manu"})
+        res.status(500).json({error:"error al obtener el productos"})
     }
 });
 
 //Crear un nuevo plato
 router.post("/platos", async (req, res)=>{
-    const {nombre, descripcion, precio, disponible} = req.body;
+    const {precio, nombre} = req.body;
     try{
         const [result] = await db.execute(
-            "INSERT INTO menu (nombre, descripcion, precio, disponibilidad ) values (?, ?, ?, ?)",
-            [nombre, descripcion, precio, disponible ?? true]
+            "INSERT INTO productos (precio, nombre) values (?, ?)",
+            [precio, nombre]
         );
         res.status(201).json({id: result.insertId, message: "Plato creado con exito"});
     } catch (error) {
@@ -31,16 +31,16 @@ router.post("/platos", async (req, res)=>{
 
 
 //Actualizar un plato
-router.put("/Platos", async(req, res)=>{
+router.put("/Platos/:id", async(req, res)=>{
     const {id} = req.params;
-    const {nombre, descripcion, precio, disponible} = req.body;
+    const {precio, nombre} = req.body;
     try{
         await db.execute(
-            "UPDATE menu SET nombre =?, descripcion =?, precio =?, disponible =? where id = ?",
-            [nombre, descripcion, precio, disponible, id]
+            "UPDATE productos SET precio = ?, nombre = ? where idproducto =? ",
+            [precio, nombre, id]
         );
         res.json({message: "Plato actualizado con exito"})
-    } catch(error){
+    } catch(error) {
         console.error("error al actualizar el plato:", error);
         res.status(500).json({error:"error al actulizar el plato"});
     }
@@ -51,7 +51,7 @@ router.put("/Platos", async(req, res)=>{
 router.delete("/Platos/:id", async (req, res)=>{
     const{id} = req.params;
     try{
-        await db.execute("DELETE FROM menu WHERE id = ?", [id]);
+        await db.execute("DELETE FROM productos WHERE idproducto = ?", [id]);
         res.json({message:"Plato Eliminado"})
     } catch (error){
         console.error("Error Al Eliminar El Plato:", error);
