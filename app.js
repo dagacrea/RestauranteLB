@@ -1,21 +1,31 @@
 import express from "express";
 import cors from "cors";
-import { router } from "./reservas.js";
 import { conectarDB } from "./db.js";
-
+import reservasRouter from "./reservas.js";
+import clientesRouter from "./clientes.js";
+import usuariosRouter from "./usuarios.js";
+import authRouter from "./auth.js";
+// Conectar a DB
 conectarDB();
-console.log(conectarDB());
+console.log("Conectado a base de datos");
+
 const app = express();
 const port = 3000;
 
+// interpretar JSON en body
 app.use(express.json());
 
+// Habilito cors
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("hola gente");
+app.get("/", (_, res) => {
+  res.send("Hola mundo!");
 });
-app.use("/reservas", router);
+app.use("/usuarios", usuariosRouter);
+app.use("/auth", authRouter);
+app.use("/clientes", clientesRouter);
+app.use("/reservas", reservasRouter);
+
 app.listen(port, () => {
-  console.log(`la aplicacion esta funcionando en el puerto:${port}`);
+  console.log(`La aplicacion esta funcionando en: ${port}`);
 });

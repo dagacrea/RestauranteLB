@@ -3,10 +3,10 @@ import mysql from "mysql2/promise";
 export let db;
 
 export async function conectarDB() {
-  const db = await mysql.createConnection({
-    host: "localhost",
-    user: "db_user",
-    password: "db_user_pass",
-    database: "restaurante",
+  db = await mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
   });
 }
