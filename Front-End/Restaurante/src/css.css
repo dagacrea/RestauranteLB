@@ -1,0 +1,134 @@
+/* Estilo global */
+html, body {
+    height: 100%; /* Asegura que body y html ocupen toda la altura */
+    margin: 0;    /* Elimina márgenes predeterminados */
+    padding: 0;   /* Elimina padding predeterminado */
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Color suave para el fondo */
+    background-image: url('https://example.com/fondo-madera.jpg'); /* Fondo con textura de madera */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Centrado del contenido en cada sección */
+  main {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    flex-direction: column; /* Asegura que el contenido se apile verticalmente */
+    height: 100%; /* Permite que el main ocupe toda la altura disponible */
+    padding: 20px; /* Agrega un poco de padding */
+  }
+  
+  /* Navegación */
+  .navbar {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    background-color: #8b3e2f; /* Marrón oscuro típico de la madera */
+    padding: 10px;           /* Ajusta el espacio alrededor */
+    position: fixed;         /* Fija el navbar arriba */
+    top: 0;
+    left: 0;
+    width: 100%;             /* Ocupa todo el ancho de la pantalla */
+    z-index: 100;            /* Mantiene el navbar en la parte superior */
+  }
+  
+  /* Lista del navbar */
+  .navbar ul {
+    display: flex;           /* Disposición horizontal */
+    list-style: none;        /* Sin viñetas */
+    margin: 0;               /* Sin margen */
+    padding: 0;              /* Sin padding */
+  }
+  
+  /* Elementos de la lista */
+  .navbar li {
+    margin: 0 15px;          /* Espaciado entre los enlaces */
+  }
+  
+  /* Enlaces dentro del navbar */
+  .navbar a {
+    color: #fff; /* Cambia el color del texto */
+    text-decoration: none;   /* Elimina subrayado */
+    font-size: 16px;         /* Tamaño del texto */
+    font-weight: bold;       /* Texto en negrita */
+    padding: 5px 10px;       /* Espaciado interno */
+    transition: background-color 0.3s ease; /* Animación suave */
+  }
+  
+  .navbar a:hover {
+    color: #000000; /* Color de fondo al pasar el ratón */
+  }
+  
+  /* Títulos */
+  h1, h2 {
+    color: #8b3e2f; /* Tono marrón */
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin-top: 80px; /* Desplazamos el contenido hacia abajo para no quedar bajo el navbar */
+  }
+  
+  /* Listado de items (platos y reservas) */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #8b3e2f; /* Borde izquierdo de color marrón */
+  }
+  
+  /* Estilo del formulario */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  input, textarea {
+    padding: 12px;
+    border: 1px solid #8b3e2f;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #f9f1e7;
+  }
+  
+  button[type="submit"] {
+    padding: 12px 24px;
+    background-color: #d48e42; /* Color cálido como el oro */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #c97d3d; /* Hover más oscuro */
+  }
+  
+  /* Fondo con imágenes rústicas */
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #8b3e2f; /* Igual que el nav para mantener el estilo */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%; /* Hace que el footer ocupe todo el ancho de la pantalla */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Asegura que el footer se quede al final */
+  }
+  
