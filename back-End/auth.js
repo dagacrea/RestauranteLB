@@ -4,7 +4,7 @@ import { body } from "express-validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { verificarValidacion } from "./validaciones.js";
-
+import passport from "passport";
 const router = express.Router();
 
 export const validarJwt = passport.authenticate("jwt", {
@@ -24,9 +24,10 @@ router.post("/login", validarLogin, verificarValidacion, async (req, res) => {
   const { nombre, contraseña } = req.body;
 
   // Obtener usuario
-  const [usuarios] = await db.execute("select * from usuarios where nombre=?", [
-    nombre,
-  ]);
+  const [usuarios] = await db.execute(
+    "select nombre,rol from usuarios where nombre=?",
+    [nombre]
+  );
 
   if (usuarios.length === 0) {
     res.status(400).send({ error: "Usuario o contraseña inválida" });
@@ -44,7 +45,7 @@ router.post("/login", validarLogin, verificarValidacion, async (req, res) => {
   }
 
   // Crear jwt
-  const payload = { nombre, rol: "admin", dato: 123 };
+  const payload = { nombre, rol: "admin" };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: "2h",
   });

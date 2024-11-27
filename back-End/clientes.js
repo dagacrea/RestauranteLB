@@ -1,7 +1,8 @@
 import express from "express";
 import { db } from "./db.js";
 import { body, validationResult } from "express-validator";
-import passport from "passport";
+import { validarJwt } from "./auth.js";
+//import passport from "passport";
 const router = express.Router();
 
 // GET /clientes
@@ -19,44 +20,32 @@ const validacionCliente = () => [
 
 // POST /clientes
 // Crear nuevo cliente
-router.post(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  validacionCliente(),
-  async (req, res) => {
-    // Enviar errores de validacion en caso de ocurrir alguno.
-    const validacion = validationResult(req);
-    if (!validacion.isEmpty()) {
-      res.status(400).send({ errores: validacion.array() });
-      return;
-    }
+router.post("/", validarJwt, validacionCliente(), async (req, res) => {
+  const { nombre, apellido, telefono, ultimosnumDni } = req.body;
 
-    const { nombre, apellido, telefono, ultimosnumDni } = req.body;
-
-    const [clienteExiste] = await db.execute(
-      "select * from reservas where nombre=? and apellido=? and telefono=? and ultimosnumDni=?",
-      [nombre, apellido]
-    );
-    if (clienteExiste.length > 0) {
-      res.status(400).send({ error: "cliente ya registrado, esta fecha" });
-      return;
-    }
-
-    // Inserta en DB
-    const [result] = await db.execute(
-      "insert into clientes (nombre, apellido, telefono, ultimosnumDni) values (?,?,?,?)",
-      [nombre, apellido, telefono, ultimosnumDni]
-    );
-    res.status(201).send({
-      cliente: {
-        id: result.insertId,
-        nombre,
-        apellido,
-        telefono,
-        ultimosnumDni,
-      },
-    });
+  const [clienteExiste] = await db.execute(
+    "select * from reservas where nombre=? and apellido=? and telefono=? and ultimosnumDni=?",
+    [nombre, apellido]
+  );
+  if (clienteExiste.length > 0) {
+    res.status(400).send({ error: "cliente ya registrado, esta fecha" });
+    return;
   }
-);
+
+  // Inserta en DB
+  const [result] = await db.execute(
+    "insert into clientes (nombre, apellido, telefono, ultimosnumDni) values (?,?,?,?)",
+    [nombre, apellido, telefono, ultimosnumDni]
+  );
+  res.status(201).send({
+    cliente: {
+      id: result.insertId,
+      nombre,
+      apellido,
+      telefono,
+      ultimosnumDni,
+    },
+  });
+});
 
 export default router;

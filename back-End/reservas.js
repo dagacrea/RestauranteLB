@@ -10,13 +10,14 @@ import { validarJwt } from "./auth.js";
 
 const router = express.Router();
 //middleware para verificar datos de reserva
+router.use(validarJwt);
 
 router.get("/", async (req, res) => {
   const [reservas] = await db.execute("select * from reservas");
   res.send({ datos: reservas });
 });
 
-router.get("/:id", validarId, verificarValidacion(), async (req, res) => {
+router.get("/:id", validarId, verificarValidacion, async (req, res) => {
   const id = Number(req.params.id);
 
   const sql = "select * from reservas where idreserva=?";
@@ -31,10 +32,10 @@ router.get("/:id", validarId, verificarValidacion(), async (req, res) => {
 
 router.post(
   "/",
+
   validarReserva,
   verificarValidacion,
-  validarRol,
-  validarJwt,
+
   async (req, res) => {
     const { idcliente, idmesa, fecha, fechaAReserv } = req.body;
 
@@ -43,21 +44,21 @@ router.post(
       [idmesa, fechaAReserv]
     );
     if (reservasExiste.length > 0) {
-      res.status(400).send({ error: "Mesa ya reservada, esta fecha" });
+      res.status(400).send({ error: "Mesa ya reservada esta fecha" });
       return;
     }
-
     const [result] = await db.execute(
-      " INSERT INTO reservas (`idcliente`, `idmesa`, `fecha`, `fechaAReserv`) VALUES (?,?,?,?)",
-      [idcliente, idmesa, fecha, fechaAReserv]
+      " INSERT INTO reservas ( `idmesa`, `fecha`, `fechaAReserv`,`idcliente`) VALUES (?,?,?,?)",
+      [idmesa, fecha, fechaAReserv, idcliente]
     );
     res.status(201).send({
       reserva: {
         id: result.insertId,
-        idcliente,
+
         idmesa,
         fecha,
         fechaAReserv,
+        idcliente,
       },
     });
   }

@@ -4,9 +4,19 @@ const ListaReservas = ({ reservas, alActualizarEstado }) => (
     <ul>
       {reservas.map((reserva) => (
         <li key={reserva.id}>
-          {reserva.fecha} - {reserva.hora} - {reserva.personas} personas
-          <button className="confirmar" onClick={() => alActualizarEstado(reserva.id, 'confirmada')}>Confirmar</button>
-          <button className="cancelar" onClick={() => alActualizarEstado(reserva.id, 'cancelada')}>Cancelar</button>
+          {reserva.fecha} - {reserva.FechaAReserv} - {reserva.idmesa} personas
+          <button
+            className="confirmar"
+            onClick={() => alActualizarEstado(reserva.id, "confirmada")}
+          >
+            Confirmar
+          </button>
+          <button
+            className="cancelar"
+            onClick={() => alActualizarEstado(reserva.id, "cancelada")}
+          >
+            Cancelar
+          </button>
         </li>
       ))}
     </ul>

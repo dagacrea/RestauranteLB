@@ -6,6 +6,7 @@ import clientesRouter from "./clientes.js";
 import usuariosRouter from "./usuarios.js";
 import { authConfig } from "./strategy.js";
 import authRouter from "./auth.js";
+
 // Conectar a DB
 conectarDB();
 console.log("Conectado a base de datos");
@@ -21,9 +22,6 @@ app.use(cors());
 
 authConfig();
 
-app.get("/", (_, res) => {
-  res.send("Hola mundo!");
-});
 app.use("/usuarios", usuariosRouter);
 app.use("/auth", authRouter);
 app.use("/clientes", clientesRouter);

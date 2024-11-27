@@ -7,28 +7,25 @@ import {
   validarusuario,
   verificarValidacion,
 } from "./validaciones.js";
+import { validarJwt } from "./auth.js";
 
 const router = express.Router();
 
-// GET /usuarios
-// Consultar por todos los usuarios
+router.use(validarJwt);
+
 router.get("/", async (req, res) => {
-  const [usuarios] = await db.execute("select id,nombre from usuarios");
+  const [usuarios] = await db.execute("select * from usuarios");
   res.send({ usuarios });
 });
 
-// POST /usuarios
-// Crear nuevo usuario
-router.post("/", validarusuario, verificarValidacion(), async (req, res) => {
-  const { nombre, contraseña } = req.body;
+router.post("/", validarusuario, verificarValidacion, async (req, res) => {
+  const { nombre, contraseña, rol } = req.body;
 
-  // Crear hash de la contraseña
   const contraseñaHashed = await bcrypt.hash(contraseña, 10);
 
-  // Inserta en DB
   const [result] = await db.execute(
-    "insert into usuarios (nombre, contraseña) values (?,?)",
-    [nombre, contraseñaHashed]
+    "insert into usuarios (nombre, contraseña,rol ) values (?,?,?)",
+    [nombre, contraseñaHashed, rol]
   );
   res.status(201).send({ usuario: { id: result.insertId, nombre } });
 });
