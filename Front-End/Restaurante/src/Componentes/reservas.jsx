@@ -1,22 +1,5 @@
 import { useState } from "react";
 import { useAuth } from "./Auth";
-//import { cliente, Seleccionarcliente } from "./clientes";
-
-/*export const Listadoreservas = ({ reservas }) => {
-  return (
-    <>
-      <h3>Listado</h3>
-      <ul>
-        {reservas.map((reserva) => (
-          <li key={reserva.id}>
-            {reserva.fecha} {reserva.fechaAReserv}. Realizada por:{" "}
-            <cliente idcliente={reserva.idcliente} />
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-};*/
 
 export const Nuevareserva = ({ onNuevareserva }) => {
   const { sesion } = useAuth();
