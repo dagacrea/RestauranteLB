@@ -16,11 +16,11 @@ router.get("/platos",async(req, res)=>{
 
 //Crear un nuevo plato
 router.post("/platos", async (req, res)=>{
-    const {precio, nombre} = req.body;
+    const {precio, nombre, descripcion} = req.body;
     try{
         const [result] = await db.execute(
-            "INSERT INTO productos (precio, nombre) values (?, ?)",
-            [precio, nombre]
+            "INSERT INTO productos (precio, nombre, descripcion) values (?, ?, ?)",
+            [precio, nombre, descripcion]
         );
         res.status(201).json({id: result.insertId, message: "Plato creado con exito"});
     } catch (error) {
@@ -33,11 +33,11 @@ router.post("/platos", async (req, res)=>{
 //Actualizar un plato
 router.put("/Platos/:id", async(req, res)=>{
     const {id} = req.params;
-    const {precio, nombre} = req.body;
+    const {precio, nombre, descripcion} = req.body;
     try{
         await db.execute(
-            "UPDATE productos SET precio = ?, nombre = ? where idproducto =? ",
-            [precio, nombre, id]
+            "UPDATE productos SET precio = ?, nombre = ?, descripcion where idproducto =? ",
+            [precio, nombre,descripcion, id]
         );
         res.json({message: "Plato actualizado con exito"})
     } catch(error) {
