@@ -1,0 +1,197 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-image: url('/assets/images/imagen-inicio.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/imagen-inicio.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  z-index: -1; 
+}
+
+/* Centrado del contenido en cada sección */
+main {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column; 
+  height: 100%; 
+  padding: 20px; 
+}
+
+/* Barra navbar */
+.navbar {
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  background-color: #8b3e2f; 
+  padding: 10px;           
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;             
+  z-index: 100;
+}
+
+/* Lista del navbar */
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;               
+  padding: 0;              
+}
+
+/* Elementos de la lista */
+.navbar li {
+  margin: 0 15px;
+}
+
+/* Enlaces dentro del navbar */
+.navbar a {
+  color: #fff; 
+  text-decoration: none;
+  font-size: 16px;         
+  font-weight: bold;       
+  padding: 5px 10px;       
+  transition: background-color 0.3s ease; 
+}
+
+.navbar a:hover {
+  color: #000000;
+}
+
+/* Titulos */
+h1, h2 {
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.968);
+  color: #ffffff; 
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 80px;
+}
+
+/* Listado de items (platos y reservas) */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.lista-platos li {
+  color: white;
+  background-color: #8b3e2f;
+}
+
+
+/* Estilo del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input, textarea {
+  padding: 12px;
+  border: 1px solid #8b3e2f;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #f9f1e7;
+}
+
+button[type="submit"] {
+  padding: 12px 24px;
+  background-color: #d48e42; 
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"]:hover {
+  background-color: #c97d3d; 
+}
+
+/* Estilo de los botones de Reserva */
+button {
+  background-color: #c97d3d;
+  color: #f4f4f4;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.2s ease;
+  margin-left: 10px; 
+}
+
+button:hover {
+  transform: scale(1.05); 
+}
+
+/* Footer */
+footer {
+  background-color: #8b3e2f; 
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%; 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100; 
+}
+
+form input, form select, form button {
+  padding: 8px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #8b3e2f;
+}
+
+form button {
+  background-color: #d48e42;
+  color: white;
+}
+
+form button:hover {
+  background-color: #c97d3d;
+}
+
+
+p {
+  color: #ffffff;
+  text-align: center;       
+  font-size: 18px;          
+  max-width: 800px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  text-shadow: 7px 7px 9px rgba(0, 0, 0, 0.676);
+  font-weight: bold;
+  
+}
