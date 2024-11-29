@@ -1,7 +1,7 @@
 //import { useState, useEffect } from "react";
 import { useAuth } from "./auth";
 
-export const ListadoReservas = () => {
+export const ListadoReservas = ({ reservasClientes }) => {
   return (
     <>
       <h3>Listado</h3>
@@ -21,7 +21,7 @@ export const NuevaReserva = ({ onNuevaReserva }) => {
   const { sesion } = useAuth();
 
   const handleSubmit = async (e) => {
-    // Obtener los valores del formulario usando FormData
+    e.preventDefault();
     const formData = new FormData(e.target);
     const nuevaReserva = {
       idmesa: formData.get("mesa"),
@@ -29,7 +29,6 @@ export const NuevaReserva = ({ onNuevaReserva }) => {
       fechaAReserv: formData.get("fechaAReserv"),
       idcliente: formData.get("cliente"),
     };
-
     const response = await fetch("http://localhost:3000/reservas", {
       method: "POST",
       headers: {
@@ -38,12 +37,10 @@ export const NuevaReserva = ({ onNuevaReserva }) => {
       },
       body: JSON.stringify(nuevaReserva),
     });
-
     if (response.ok) {
       e.target.reset();
       onNuevaReserva();
     }
-    e.preventDefault();
   };
 
   return (

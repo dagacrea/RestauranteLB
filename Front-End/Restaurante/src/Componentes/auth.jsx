@@ -9,7 +9,7 @@ export const useAuth = () => {
 };
 
 // Componente principal
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [sesion, setSesion] = useState(null);
 
   const login = async (nombre, contraseña, ok, error) => {
@@ -77,3 +77,4 @@ export const AuthStatus = () => {
     </>
   );
 };
+export default AuthProvider;

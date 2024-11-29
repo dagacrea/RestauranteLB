@@ -8,16 +8,17 @@ const LoginPage = () => {
   const location = useLocation();
   const [error, setError] = useState(false);
 
-  const from = location.state?.from?.pathname || "/Login";
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = (event) => {
     const formData = new FormData(event.currentTarget);
-    const usuario = formData.get("usuario");
+    const nombre = formData.get("nombre");
     const contraseña = formData.get("contraseña");
 
     login(
-      usuario,
+      nombre,
       contraseña,
+
       () => navigate(from, { replace: true }), // OK
       () => setError(true) // Error
     );
@@ -28,15 +29,14 @@ const LoginPage = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <label htmlFor="usuario">Usuario:</label>
-        <input name="usuario" type="text" />
+        <label htmlFor="nombre">nombre:</label>
+        <input name="nombre" type="text" />
         <label htmlFor="contraseña">Contraseña:</label>
-        <input name="contraseña" type="contraseña" />
+        <input name="contraseña" type="password" />
         <button type="submit">Ingresar</button>
       </form>
-      {error && <p>Usuario o contraseña inválido</p>}
+      {error && <p>nombre o contraseña inválido</p>}
     </>
   );
 };
-
 export default LoginPage;
