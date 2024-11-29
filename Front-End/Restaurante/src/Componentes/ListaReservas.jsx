@@ -3,19 +3,19 @@ import { useAuth } from "./auth";
 
 export const ListadoReservas = ({ reservasClientes }) => {
   return (
-    <>
-      <h3>Listado</h3>
-      <ul>
+    <div className="reservas-page">
+      <ul className="listado-reservas">
         {reservasClientes.map((reservaCliente) => (
           <li key={reservaCliente.id}>
-            {reservaCliente.nombre} {reservaCliente.idmesa}
+            {reservaCliente.nombre} - Mesa: {reservaCliente.idmesa} - Fecha:{" "}
             {reservaCliente.fechaAReserv}
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
+
 
 export const NuevaReserva = ({ onNuevaReserva }) => {
   const { sesion } = useAuth();
@@ -44,33 +44,24 @@ export const NuevaReserva = ({ onNuevaReserva }) => {
   };
 
   return (
-    <>
-      <h3>Nueva Reserva</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="reservas-container">
+      <form onSubmit={handleSubmit} className="nueva-reserva-form">
+        <h3>Nueva Reserva</h3>
           <label htmlFor="mesa">Mesa:</label>
           <input id="mesa" name="mesa" type="number" required />
-        </div>
-        <div>
+      
           <label htmlFor="fecha">Fecha de Solicitud:</label>
           <input id="fecha" name="fecha" type="datetime-local" required />
-        </div>
-        <div>
+        
+      
           <label htmlFor="fechaAReserv">Fecha y hora para la Reserva:</label>
-          <input
-            id="fechaAReserv"
-            name="fechaAReserv"
-            type="datetime-local"
-            required
-          />
-        </div>
-        <div>
+          <input id="fechaAReserv" name="fechaAReserv" type="datetime-local" required />
+        
           <label htmlFor="cliente">Clienteid:</label>
           <input id="cliente" name="cliente" type="number" required />
-        </div>
+          <button type="submit">Crear Reserva</button>
 
-        <button type="submit">Crear Reserva</button>
       </form>
-    </>
+    </div>
   );
 };

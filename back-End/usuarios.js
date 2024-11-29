@@ -19,13 +19,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", validarusuario, verificarValidacion, async (req, res) => {
-  const { nombre, contraseña, rol } = req.body;
+  const { nombre, contraseña } = req.body;
 
   const contraseñaHashed = await bcrypt.hash(contraseña, 10);
 
   const [result] = await db.execute(
-    "insert into usuarios (nombre, contraseña,rol ) values (?,?,?)",
-    [nombre, contraseñaHashed, rol]
+    "insert into usuarios (nombre, contraseña) values (?,?)",
+    [nombre, contraseñaHashed]
   );
   res.status(201).send({ usuario: { id: result.insertId, nombre } });
 });

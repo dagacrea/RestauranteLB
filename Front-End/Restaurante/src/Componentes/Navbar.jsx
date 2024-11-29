@@ -1,14 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../Componentes/auth";
 
 const Navbar = () => {
-  const { sesion, logout } = useAuth(); //
-  const navigate = useNavigate();
+  const { sesion, logout } = useAuth();
 
   const handleLogout = () => {
-    logout(() => {
-      navigate("/login", { replace: true });
-    });
+    logout();
   };
 
   return (
@@ -28,8 +25,7 @@ const Navbar = () => {
             <li>
               <Link to="/ventas">Gestión de Ventas</Link>
             </li>
-            <li>
-              <button onClick={handleLogout}>Cerrar Sesión</button>
+            <li><Link to="/login" onClick={handleLogout}>Salir</Link>
             </li>
           </>
         ) : (

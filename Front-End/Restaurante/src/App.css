@@ -29,7 +29,7 @@ body::after {
   z-index: -1; 
 }
 
-/* Centrado del contenido en cada sección */
+
 main {
   display: flex;
   justify-content: center; 
@@ -39,7 +39,7 @@ main {
   padding: 20px; 
 }
 
-/* Barra navbar */
+
 .navbar {
   display: flex;
   justify-content: center; 
@@ -53,7 +53,7 @@ main {
   z-index: 100;
 }
 
-/* Lista del navbar */
+
 .navbar ul {
   display: flex;
   list-style: none;
@@ -61,12 +61,11 @@ main {
   padding: 0;              
 }
 
-/* Elementos de la lista */
 .navbar li {
   margin: 0 15px;
 }
 
-/* Enlaces dentro del navbar */
+
 .navbar a {
   color: #fff; 
   text-decoration: none;
@@ -80,17 +79,17 @@ main {
   color: #000000;
 }
 
-/* Titulos */
+
 h1, h2 {
   text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.968);
   color: #ffffff; 
   font-family: 'Arial', sans-serif;
   font-weight: bold;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 100px;
 }
 
-/* Listado de items (platos y reservas) */
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -108,7 +107,7 @@ li {
 }
 
 
-/* Estilo del formulario */
+
 form {
   display: flex;
   flex-direction: column;
@@ -137,7 +136,6 @@ button[type="submit"]:hover {
   background-color: #c97d3d; 
 }
 
-/* Estilo de los botones de Reserva */
 button {
   background-color: #c97d3d;
   color: #f4f4f4;
@@ -154,7 +152,7 @@ button:hover {
   transform: scale(1.05); 
 }
 
-/* Footer */
+
 footer {
   background-color: #8b3e2f; 
   color: white;
@@ -194,4 +192,133 @@ p {
   text-shadow: 7px 7px 9px rgba(0, 0, 0, 0.676);
   font-weight: bold;
   
+}
+
+
+/* Contenedor principal para reservas */
+.reservas-container {
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  margin: 20px auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
+}
+
+/* Título */
+.reservas-container h3 {
+  color: #8b3e2f;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Listado de Reservas */
+.listado-reservas {
+  padding: 0;
+  margin: 0 auto;
+  max-width: 800px;
+  list-style-type: none;
+}
+
+.listado-reservas li {
+  background-color: #d48e42;
+  color: #ffffff;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listado-reservas li i {
+  font-size: 20px;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.listado-reservas li:hover {
+  background-color: #a65d35;
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Nueva Reserva - Formulario */
+.nueva-reserva-form {
+  padding: 30px;
+  background-color: #ffffff;
+  border: 2px solid #d48e42;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.nueva-reserva-form div {
+  margin-bottom: 20px;
+}
+
+.nueva-reserva-form label {
+  display: block;
+  font-weight: bold;
+  color: #8b3e2f;
+  margin-bottom: 5px;
+}
+
+.nueva-reserva-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d48e42;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #f9f1e7;
+}
+
+.nueva-reserva-form input:focus {
+  outline: none;
+  border-color: #8b3e2f;
+  box-shadow: 0px 0px 5px rgba(139, 62, 47, 0.5);
+}
+
+/* Botón de Envío */
+.nueva-reserva-form button[type="submit"] {
+  background-color: #8b3e2f;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.nueva-reserva-form button[type="submit"]:hover {
+  background-color: #a65d35;
+  transform: scale(1.05);
+}
+
+/* Mensaje de Respuesta */
+.reserva-mensaje {
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.reserva-mensaje.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.reserva-mensaje.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }

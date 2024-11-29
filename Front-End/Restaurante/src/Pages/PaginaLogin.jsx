@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Componentes/auth";
 import { useState } from "react";
+import "./PaginaLogin.css";
 
 const LoginPage = () => {
   const { login } = useAuth();
@@ -18,7 +19,6 @@ const LoginPage = () => {
     login(
       nombre,
       contraseña,
-
       () => navigate("/inicio"), // OK
       () => setError(true) // Error
     );
@@ -27,16 +27,20 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="nombre">nombre:</label>
-        <input name="nombre" type="text" />
-        <label htmlFor="contraseña">Contraseña:</label>
-        <input name="contraseña" type="password" />
-        <button type="submit">Ingresar</button>
+    <div className="login-page">
+      <form onSubmit={onSubmit} className="login-form">
+      <h1 className="h1-input">Restaurante <br />La Riojana</h1>
+        <label htmlFor="nombre" className="login-label">Usuario:</label>
+        <input name="nombre" type="text" className="login-input" placeholder="Ingresar Usuario" />
+        
+        <label htmlFor="contraseña" className="login-label">Contraseña:</label>
+        <input name="contraseña" type="password" className="login-input" placeholder="Ingresar Contraseña"/>
+        
+        <button type="submit" className="login-button">Ingresar</button>
+        {error && <p className="login-error">Nombre o contraseña inválido</p>}
       </form>
-      {error && <p>nombre o contraseña inválido</p>}
-    </>
+    </div>
   );
 };
+
 export default LoginPage;
