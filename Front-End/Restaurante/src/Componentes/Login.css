@@ -1,7 +1,7 @@
 .login-container {
     background-color: rgba(255, 255, 255, 0.8); 
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     width: 100%;
     max-width: 400px;
     margin: 100px auto; 
@@ -37,6 +37,7 @@
   
   .login-container button:hover {
     background-color: #c97d3d; 
+    color: #000000;
   }
   
   .error {
