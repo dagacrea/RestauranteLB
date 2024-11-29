@@ -1,12 +1,10 @@
-
-const ListaPlatos = ({ platos, alVerImagen }) => (
+const ListaPlatos = ({ platos }) => (
   <div>
     <h2>Listado de Platos</h2>
-    <ul>
+    <ul className="lista-platos">
       {platos.map((plato) => (
         <li key={plato.id}>
-          {plato.nombre} - ${plato.precio} - {plato.disponible ? 'Disponible' : 'No Disponible'}
-          <button onClick={() => alVerImagen(plato.id)}>Ver Imagen</button>
+          {plato.nombre} - ${plato.precio} - {plato.descripcion}
         </li>
       ))}
     </ul>

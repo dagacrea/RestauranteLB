@@ -3,20 +3,39 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  background-image: url('/assets/images/imagen-inicio.jpg'); 
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-image: url('/assets/images/imagen-inicio.jpg');
   background-size: cover;
   background-position: center;
 }
 
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/imagen-inicio.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  z-index: -1; 
+}
 
 /* Centrado del contenido en cada sección */
 main {
   display: flex;
-  justify-content: center; /* Centra los elementos horizontalmente */
-  align-items: center; /* Centra los elementos verticalmente */
-  flex-direction: column; /* Hace que el contenido se apile verticalmente */
-  height: 100%; /* Hace que el main ocupe toda la altura disponible */
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column; 
+  height: 100%; 
   padding: 20px; 
 }
 
@@ -27,48 +46,48 @@ main {
   align-items: center;    
   background-color: #8b3e2f; 
   padding: 10px;           
-  position: fixed;/* Fija el navbar arriba */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;             
-  z-index: 100;/* Mantiene el navbar en la parte superior */
+  z-index: 100;
 }
 
 /* Lista del navbar */
 .navbar ul {
-  display: flex;/* Disposición horizontal */
-  list-style: none;/* Sin viñetas */
+  display: flex;
+  list-style: none;
   margin: 0;               
   padding: 0;              
 }
 
 /* Elementos de la lista */
 .navbar li {
-  margin: 0 15px;/* Espaciado entre los enlaces */
+  margin: 0 15px;
 }
 
 /* Enlaces dentro del navbar */
 .navbar a {
   color: #fff; 
-  text-decoration: none;/* Elimina subrayado */
+  text-decoration: none;
   font-size: 16px;         
   font-weight: bold;       
   padding: 5px 10px;       
-  transition: background-color 0.3s ease; /* Animación suave */
+  transition: background-color 0.3s ease; 
 }
 
 .navbar a:hover {
-  color: #000000; /* Color cuando paso el mouse */
-  
+  color: #000000;
 }
 
 /* Titulos */
 h1, h2 {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  color: #8b3e2f; 
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.968);
+  color: #ffffff; 
   font-family: 'Arial', sans-serif;
+  font-weight: bold;
   text-align: center;
-  margin-top: 80px; /* Desplazamos el contenido hacia abajo para no quedar bajo el navbar */
+  margin-top: 80px;
 }
 
 /* Listado de items (platos y reservas) */
@@ -81,9 +100,13 @@ li {
   padding: 12px;
   margin: 10px 0;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ESTE PROBAR Y BORRAR*/
-  border-left: 6px solid #8b3e2f; /* Borde izquierdo de color marrón */ /*ESTE TMB PROBAR Y DELETE*/
 }
+
+.lista-platos li {
+  color: white;
+  background-color: #8b3e2f;
+}
+
 
 /* Estilo del formulario */
 form {
@@ -111,11 +134,10 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #c97d3d; /* Hover más oscuro */
+  background-color: #c97d3d; 
 }
 
-
-/* Estilo de los botones de Reserva (Confirmar y Cancelar) */
+/* Estilo de los botones de Reserva */
 button {
   background-color: #c97d3d;
   color: #f4f4f4;
@@ -124,14 +146,13 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s, transform 0.2s ease; /* Transición suave */
-  margin-left: 10px; /* Separación entre los botones */
+  transition: background-color 0.3s, transform 0.2s ease;
+  margin-left: 10px; 
 }
 
 button:hover {
-  transform: scale(1.05); /* Aumenta el tamaño un poco al pasar el ratón */
+  transform: scale(1.05); 
 }
-
 
 /* Footer */
 footer {
@@ -143,9 +164,8 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Asegura que el footer se quede al final */
+  z-index: 100; 
 }
-
 
 form input, form select, form button {
   padding: 8px;
@@ -164,26 +184,14 @@ form button:hover {
 }
 
 
-/* Estilo para la imagen de la página de inicio */
-.imagen-inicio {
-  width: 85%;               
-  height: auto; /* Mantiene la proporción de la imagen */
-  max-height: 350px; /* Limita la altura máxima a 350px */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  margin-top: 20px;         
-  margin-bottom: 20px;      
-  display: block;/* Elimina espacios debajo de la imagen */
-  margin-left: auto;        
-  margin-right: auto;       
-}
-
-/* Estilo para el p en la página de inicio */
 p {
+  color: #ffffff;
   text-align: center;       
   font-size: 18px;          
-  max-width: 800px;/* Ancho máximo para que el párrafo no se extienda demasiado */
-  margin: 0 auto 20px;/* Centra el párrafo y agrega espacio inferior */
-  line-height: 1.6;/* Mejora la legibilidad aumentando el espacio entre líneas */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  text-shadow: 7px 7px 9px rgba(0, 0, 0, 0.676);
+  font-weight: bold;
+  
 }
