@@ -7,8 +7,9 @@ const PaginaMenu = () => {
   const [platos, setPlatos] = useState([]);
 
   const agregarPlato = (plato) => {
-    setPlatos([...platos, { ...plato, id: Date.now() }]);
+    setPlatos([...platos, { ...plato, id: platos.length + 1 }]);
   };
+  
 
   return (
     <div>
