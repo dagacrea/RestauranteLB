@@ -19,7 +19,7 @@ const LoginPage = () => {
       nombre,
       contraseña,
 
-      () => navigate(from, { replace: true }), // OK
+      () => navigate("/inicio"), // OK
       () => setError(true) // Error
     );
 

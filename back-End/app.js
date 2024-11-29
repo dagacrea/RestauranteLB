@@ -6,6 +6,10 @@ import clientesRouter from "./clientes.js";
 import usuariosRouter from "./usuarios.js";
 import { authConfig } from "./strategy.js";
 import authRouter from "./auth.js";
+import routerProductos from "./productos.js";
+import routerProductosVentas from "./productosVentas.js";
+import routerVentas from "./ventas.js";
+
 
 // Conectar a DB
 conectarDB();
@@ -26,6 +30,11 @@ app.use("/usuarios", usuariosRouter);
 app.use("/auth", authRouter);
 app.use("/clientes", clientesRouter);
 app.use("/reservas", reservasRouter);
+
+app.use("/productos",routerProductos)
+app.use("/ventas",routerVentas)
+app.use("/productoVentas",routerProductosVentas)
+
 
 app.listen(port, () => {
   console.log(`La aplicacion esta funcionando en: ${port}`);
