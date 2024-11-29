@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Componentes/auth";
 import { useState } from "react";
-
+import "./Login.css";
 const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();

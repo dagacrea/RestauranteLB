@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout(() => {
-      navigate("/login", { replace: true });
+      navigate("/");
     });
   };
 
@@ -27,6 +27,9 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/ventas">Gestión de Ventas</Link>
+            </li>
+            <li>
+              <Link to="/listas">Lista de clientes y reservas</Link>
             </li>
             <li>
               <button onClick={handleLogout}>Cerrar Sesión</button>

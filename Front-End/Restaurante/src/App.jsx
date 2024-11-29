@@ -6,6 +6,7 @@ import PaginaInicio from "./Pages/PaginaInicio";
 import LoginPage from "./Pages/PaginaLogin.jsx";
 import LayoutGeneral from "./Componentes/LayoutGeneral";
 import { AuthPage } from "./Componentes/auth.jsx";
+import PaginaListas from "./Pages/PaginaListas.jsx";
 const App = () => {
   return (
     <Routes>
@@ -13,25 +14,41 @@ const App = () => {
       <Route
         path="/inicio"
         element={
-          <LayoutGeneral>
-            <PaginaInicio />
-          </LayoutGeneral>
+          <AuthPage>
+            <LayoutGeneral>
+              <PaginaInicio />
+            </LayoutGeneral>
+          </AuthPage>
         }
       />
       <Route
         path="/menu"
         element={
-          <LayoutGeneral>
-            <PaginaMenu />
-          </LayoutGeneral>
+          <AuthPage>
+            <LayoutGeneral>
+              <PaginaMenu />
+            </LayoutGeneral>
+          </AuthPage>
         }
       />
       <Route
         path="/reservas"
         element={
-          <LayoutGeneral>
-            <PaginaReservas />
-          </LayoutGeneral>
+          <AuthPage>
+            <LayoutGeneral>
+              <PaginaReservas />
+            </LayoutGeneral>
+          </AuthPage>
+        }
+      />
+      <Route
+        path="/Listas"
+        element={
+          <AuthPage>
+            <LayoutGeneral>
+              <PaginaListas />
+            </LayoutGeneral>
+          </AuthPage>
         }
       />
     </Routes>
