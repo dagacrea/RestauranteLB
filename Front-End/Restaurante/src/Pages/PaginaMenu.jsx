@@ -7,14 +7,14 @@ const PaginaMenu = () => {
   const [platos, setPlatos] = useState([]);
 
   const agregarPlato = (plato) => {
-    setPlatos([...platos, { ...plato, id: Date.now(), disponible: true }]);
+    setPlatos([...platos, { ...plato, id: Date.now() }]);
   };
 
   return (
     <div>
       <h1>Gestión de Menú</h1>
       <FormularioPlato alGuardar={agregarPlato} />
-      <ListaPlatos platos={platos} alVerImagen={(id) => alert(`Ver imagen del plato ${id}`)} />
+      <ListaPlatos platos={platos}/>
     </div>
   );
 };
