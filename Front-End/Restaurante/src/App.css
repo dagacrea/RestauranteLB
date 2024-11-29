@@ -82,12 +82,12 @@ main {
 
 /* Titulos */
 h1, h2 {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.968);
+  text-shadow: 5px 5px 7px rgba(0, 0, 0, 0.968);
   color: #ffffff; 
   font-family: 'Arial', sans-serif;
   font-weight: bold;
   text-align: center;
-  margin-top: 80px; /* Desplazamos el contenido hacia abajo para no quedar bajo el navbar */
+  margin-top: 80px;
 }
 
 /* Listado de items (platos y reservas) */
@@ -191,7 +191,7 @@ p {
   max-width: 800px;
   margin: 0 auto 20px;
   line-height: 1.6;
-  text-shadow: 7px 7px 7px rgba(0, 0, 0, 0.676);
+  text-shadow: 7px 7px 9px rgba(0, 0, 0, 0.676);
   font-weight: bold;
   
 }
