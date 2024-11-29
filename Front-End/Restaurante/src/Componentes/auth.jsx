@@ -50,7 +50,7 @@ export const AuthPage = ({ children }) => {
   return children;
 };
 
-// Autorizar rol
+/*/ Autorizar rol
 export const AuthRol = ({ rol, children }) => {
   const { sesion } = useAuth();
 
@@ -59,7 +59,7 @@ export const AuthRol = ({ rol, children }) => {
   }
 
   return children;
-};
+};*/
 
 // Estado de autorizacion
 export const AuthStatus = () => {

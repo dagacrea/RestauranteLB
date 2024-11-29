@@ -1,14 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "./auth";
+import { useAuth } from "../Componentes/auth";
 import { useState } from "react";
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState(false);
 
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/Login";
 
   const onSubmit = (event) => {
     const formData = new FormData(event.currentTarget);
@@ -38,3 +38,5 @@ export const LoginPage = () => {
     </>
   );
 };
+
+export default LoginPage;

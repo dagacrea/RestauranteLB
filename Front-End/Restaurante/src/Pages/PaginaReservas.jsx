@@ -1,26 +1,32 @@
-import { useState } from 'react';
-import ListaReservas from '../Componentes/ListaReservas';
+import { useState, useEffect } from "react";
+import { ListadoReservas, NuevaReserva } from "../Componentes/ListaReservas";
 import "../App.css";
+import { useAuth } from "../Componentes/auth";
 
 const PaginaReservas = () => {
-  const [reservas, setReservas] = useState([
-    { id: 1, fecha: '2024-11-14', hora: '18:00', personas: 4, estado: 'pendiente' },
-  ]);
+  const { sesion } = useAuth();
+  const [reservasClientes, setReservasClientes] = useState([]);
 
-  const actualizarEstado = (id, nuevoEstado) => {
-    setReservas((prev) =>
-      prev.map((reserva) =>
-        reserva.id === id ? { ...reserva, estado: nuevoEstado } : reserva
-      )
-    );
+  const getReservas = async () => {
+    const response = await fetch("http://localhost:3000/reservas/clientes", {
+      headers: { authorization: `Bearer ${sesion.token}` },
+    });
+    if (response.ok) {
+      const { reservasClientes } = await response.json();
+      setReservasClientes(reservasClientes);
+    }
   };
+
+  useEffect(() => {
+    getReservas();
+  }, []);
 
   return (
     <div>
       <h1>Gestión de Reservas</h1>
-      <ListaReservas reservas={reservas} alActualizarEstado={actualizarEstado} />
+      <ListadoReservas reservasClientes={reservasClientes} />
+      <NuevaReserva onNuevaReserva={getReservas} />
     </div>
   );
 };
-
 export default PaginaReservas;

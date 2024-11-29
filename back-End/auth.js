@@ -24,10 +24,9 @@ router.post("/login", validarLogin, verificarValidacion, async (req, res) => {
   const { nombre, contraseña } = req.body;
 
   // Obtener usuario
-  const [usuarios] = await db.execute(
-    "select nombre,rol from usuarios where nombre=?",
-    [nombre]
-  );
+  const [usuarios] = await db.execute("select * from usuarios where nombre=?", [
+    nombre,
+  ]);
 
   if (usuarios.length === 0) {
     res.status(400).send({ error: "Usuario o contraseña inválida" });

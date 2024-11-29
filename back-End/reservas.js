@@ -2,7 +2,6 @@ import express from "express";
 import { db } from "./db.js";
 import {
   validarReserva,
-  validarRol,
   verificarValidacion,
   validarId,
 } from "./validaciones.js";
@@ -15,6 +14,16 @@ router.use(validarJwt);
 router.get("/", async (req, res) => {
   const [reservas] = await db.execute("select * from reservas");
   res.send({ datos: reservas });
+});
+
+// ver reservas y nombres de clientes
+router.get("/clientes", verificarValidacion, async (req, res) => {
+  const sql =
+    "SELECT r.id AS id_reserva,r.idmesa, r.fecha, r.fechaAReserv, c.nombre, c.apellido,  FROM reservas r JOIN clientes c ON r.idcliente = c.idcliente";
+
+  const [reservas] = await db.execute(sql);
+
+  res.send({ reservas });
 });
 
 router.get("/:id", validarId, verificarValidacion, async (req, res) => {
