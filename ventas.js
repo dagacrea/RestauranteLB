@@ -1,93 +1,94 @@
-import express from "express"
-import {db} from "./db.js"
-import { verificarValidacion, validacionVenta, validarId } from "./validacion.js";
+import express from "express";
+import { db } from "./db.js";
+import { verificarValidacion, validarId, validacionVenta } from "./validacion.js";
 
-const router = express.Router();
+const routerVentas = express.Router();
 
-
-//obtener ventas 
-router.get("/ventas",  async (req, res)=>{
-    try{
-        const [ventas] = await db.execute("SELECT * FROM ventas");
-        res.json(ventas);
-    }catch (error) {
-        console.error("Error al obtener las ventas", error);
-        res.status(500).json({error: "Error al obtener las ventas"})
-    }
-})
-
-
-//crear una nueva venta 
-router.post("/ventas",
-    validacionVenta(), 
-    verificarValidacion, 
-    async (req, res)=>{
-        const {fecha, vendido, idcliente, totalventa} = req.body;
-    
-        try{
-        const [result] =await db.execute(
-            "INSERT INTO ventas (fecha, vendido, idcliente, totalventa) values (?, ?, ?, ?)",
-            [fecha, vendido, idcliente, totalventa]
-        );
-        res.status(201).json({id: result.insertId, message:"venta creada con exito"})
-    
-        } catch(error){
-            console.error("Error al crear la venta ", error);
-            res.status(500).json({error:"Error al crear la venta"});
-    }
+// Obtener todas las ventas
+routerVentas.get("/", async (req, res) => {
+    const [ventas] = await db.execute("SELECT * FROM ventas");
+    res.json({ datos: ventas });
 });
 
+// Obtener una venta por fecha
+routerVentas.get("/fecha", async (req, res) => {
+    const { fecha } = req.query;
 
-//Actualizar una venta 
+    if (!fecha || fecha.trim() === "") {
+        res.status(400).json({ error: "La fecha es obligatoria para buscar." });
+        return;
+    }
 
-router.put("/ventas/:id", 
+    const [result] = await db.execute(
+        "SELECT * FROM ventas WHERE fecha = ?",
+        [fecha]
+    );
+
+    if (result.length === 0) {
+        res.status(404).json({ error: "No se encontraron ventas con esa fecha." });
+        return;
+    }
+
+    res.json(result);
+});
+
+// Crear una nueva venta
+routerVentas.post(
+    "/",
+    validacionVenta(),
+    verificarValidacion,
+    async (req, res) => {
+        const { fecha, vendido, idcliente, totalventa } = req.body;
+
+        const [result] = await db.execute(
+            "INSERT INTO ventas (fecha, vendido, idcliente, totalventa) VALUES (?, ?, ?, ?)",
+            [fecha, vendido, idcliente, totalventa]
+        );
+        res.status(201).json({ id: result.insertId, message: "Venta creada con éxito." });
+    }
+);
+
+// Actualizar una venta
+routerVentas.put(
+    "/:id",
     validarId,
-    validacionVenta(), 
-    verificarValidacion, 
-    async (req, res)=>{
+    validacionVenta(),
+    verificarValidacion,
+    async (req, res) => {
+        const { id } = req.params;
+        const { fecha, vendido, idcliente, totalventa } = req.body;
 
-        const {id} = req.params;
-        const {fecha, vendido, idcliente, totalventa} =req.body;
-
-
-    
-        try{
-        const [venta] = await db.execute("SELECT * FROM ventas WHERE idventa = ?", [id])    
-        if (venta.length === 0){
-            return res.status(404).json({error: "la venta que quiere actualizar no existe"})
+        const [ventaExistente] = await db.execute("SELECT * FROM ventas WHERE idventa = ?", [id]);
+        if (ventaExistente.length === 0) {
+            res.status(404).json({ error: "La venta no existe." });
+            return;
         }
+
         await db.execute(
             "UPDATE ventas SET fecha = ?, vendido = ?, idcliente = ?, totalventa = ? WHERE idventa = ?",
             [fecha, vendido, idcliente, totalventa, id]
         );
-        res.json({message: "venta actualizada con exito"})
-        } catch (error) {
-            console.error("Error al actualizar la venta", error)
-            res.status(500).json({error:"Error al actualizar la venta"});
+        res.json({ message: "Venta actualizada con éxito." });
     }
-});
+);
 
-
-//Eliminar venta
-router.delete("/ventas/:id", 
+// Eliminar una venta
+routerVentas.delete(
+    "/:id",
     validarId,
-    verificarValidacion, 
-    async (req, res)=>{
-        const {id} = req.params;
-    
-        try{
-        const [venta] = await db.execute("SELECT * FROM ventas WHERE idventa = ?", [id])
-        if (venta.length === 0){
-            return res.status(404).json({error: "La venta que quiere eliminar no existe"})
+    verificarValidacion,
+    async (req, res) => {
+        const { id } = req.params;
+
+        const [ventaExistente] = await db.execute("SELECT * FROM ventas WHERE idventa = ?", [id]);
+        if (ventaExistente.length === 0) {
+            res.status(404).json({ error: "La venta no existe." });
+            return;
         }
 
         await db.execute("DELETE FROM ventas WHERE idventa = ?", [id]);
-        res.json({message:"la venta se elimino con exito"});
-        } catch (error) {
-            console.error("Error al eliminar la venta", error);
-            res.status(500).json({error: "Error al eliminar la venta"})
+        res.json({ message: "Venta eliminada con éxito." });
     }
-})
+);
 
-
-export default router;
+export default routerVentas;
